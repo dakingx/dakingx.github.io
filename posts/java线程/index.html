@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>Java线程 - DakingTech</title><meta name="Description" content=""><meta property="og:title" content="Java线程" />
+<meta property="og:description" content="掌握 Java 线程的创建、启动、运行、中断和停止" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://daking.tech/posts/java%E7%BA%BF%E7%A8%8B/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-05-04T14:09:46&#43;08:00" />
+<meta property="article:modified_time" content="2021-05-04T14:09:46&#43;08:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Java线程"/>
+<meta name="twitter:description" content="掌握 Java 线程的创建、启动、运行、中断和停止"/>
+<meta name="application-name" content="DakingTech">
+<meta name="apple-mobile-web-app-title" content="DakingTech"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://daking.tech/posts/java%E7%BA%BF%E7%A8%8B/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Java线程",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/daking.tech\/posts\/java%E7%BA%BF%E7%A8%8B\/"
+        },"genre": "posts","keywords": "Java, 并发","wordcount":  3375 ,
+        "url": "http:\/\/daking.tech\/posts\/java%E7%BA%BF%E7%A8%8B\/","datePublished": "2021-05-04T14:09:46+08:00","dateModified": "2021-05-04T14:09:46+08:00","publisher": {
+            "@type": "Organization",
+            "name": "daking"},"author": {
+                "@type": "Person",
+                "name": "daking"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : '' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="DakingTech">Daking</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/about/"> 关于 </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="DakingTech">Daking</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/about/" title="">关于</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">Java线程</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="http://daking.tech/" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>daking</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/java/"><i class="far fa-folder fa-fw"></i>Java</a>&nbsp;<a href="/categories/%E5%B9%B6%E5%8F%91/"><i class="far fa-folder fa-fw"></i>并发</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-05-04">2021-05-04</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 3375 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 7 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#进程与线程">进程与线程</a></li>
+    <li><a href="#thread-api">Thread API</a>
+      <ul>
+        <li><a href="#thread-属性">Thread 属性</a></li>
+        <li><a href="#thread-方法">Thread 方法</a></li>
+      </ul>
+    </li>
+    <li><a href="#java-线程的创建">Java 线程的创建</a></li>
+    <li><a href="#java-线程的启动与运行">Java 线程的启动与运行</a></li>
+    <li><a href="#线程的生命周期状态">线程的生命周期状态</a></li>
+    <li><a href="#java-线程的类别">Java 线程的类别</a></li>
+    <li><a href="#java-线程的中断">Java 线程的中断</a></li>
+    <li><a href="#java-阻塞方法与中断响应">Java 阻塞方法与中断响应</a></li>
+    <li><a href="#java-线程的停止">Java 线程的停止</a></li>
+    <li><a href="#参考资料">参考资料</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="进程与线程">进程与线程</h2>
+<p>进程是程序的运行实例。运行一个 Java 程序的实质是启动一个 Java 虚拟机进程。</p>
+<p>进程是操作系统进行资源（如内存空间和文件句柄）分配和调度的基本单位。线程是CPU分配的基本单位。</p>
+<p>线程是进程的一个执行路径，一个进程中至少有一个线程，可以包含多个线程。</p>
+<p>同一个进程中的所有线程共享该进程中的资源，如内存空间、文件句柄等。</p>
+<h2 id="thread-api">Thread API</h2>
+<h3 id="thread-属性">Thread 属性</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">名称</th>
+<th style="text-align:left">类型</th>
+<th style="text-align:left">用途</th>
+<th style="text-align:left">读写</th>
+<th style="text-align:left">注意事项</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">编号（ID）</td>
+<td style="text-align:left">long</td>
+<td style="text-align:left">用于标识不同的线程</td>
+<td style="text-align:left">只读</td>
+<td style="text-align:left">不同线程拥有不同的ID。</br>这种编号的唯一性只在JVM的一次运行有效。</td>
+</tr>
+<tr>
+<td style="text-align:left">名称（Name）</td>
+<td style="text-align:left">String</td>
+<td style="text-align:left">面向人，用来区分不同的线程。<br>默认值与线程编号有关，格式为<code>Thread-编号</code>。</td>
+<td style="text-align:left">读写</td>
+<td style="text-align:left">可将不同线程的名称设置为相同值。<br>设置线程的名称有助于代码调试和问题定位。</td>
+</tr>
+<tr>
+<td style="text-align:left">类别（Daemon）</td>
+<td style="text-align:left">boolean</td>
+<td style="text-align:left">值为true表示守护线程。</td>
+<td style="text-align:left">读写</td>
+<td style="text-align:left">该属性必须在线程启动之前设置。</td>
+</tr>
+<tr>
+<td style="text-align:left">优先级（Priority）</td>
+<td style="text-align:left">int</td>
+<td style="text-align:left">给线程调度器的提示。</td>
+<td style="text-align:left">读写</td>
+<td style="text-align:left">不恰当的设置会导致严重的问题，如线程饥饿</td>
+</tr>
+</tbody>
+</table>
+<h3 id="thread-方法">Thread 方法</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">方法</th>
+<th style="text-align:left">用途</th>
+<th style="text-align:left">注意事项</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">void start()</td>
+<td style="text-align:left">启动相应线程</td>
+<td style="text-align:left">一个 Thread 实例的 start 方法只能被调用一次</td>
+</tr>
+<tr>
+<td style="text-align:left">void run()</td>
+<td style="text-align:left">用于实现线程的任务处理逻辑</td>
+<td style="text-align:left">该方法是由 JVM 调用</td>
+</tr>
+<tr>
+<td style="text-align:left">void join()</td>
+<td style="text-align:left">等待相应线程执行结束</td>
+<td style="text-align:left">若线程A调用线程B的 join 方法，那么线程A会暂停，直到线程B运行结束</td>
+</tr>
+<tr>
+<td style="text-align:left">static void yield()</td>
+<td style="text-align:left">使线程主动放弃其对处理器的占用</td>
+<td style="text-align:left">此方法是不可靠的，当前线程可能仍继续执行</td>
+</tr>
+<tr>
+<td style="text-align:left">static void sleep(long millis)</td>
+<td style="text-align:left">使线程休眠指定的时间</td>
+<td style="text-align:left"><strong>不会放弃持有的 monitor 锁</strong></td>
+</tr>
+<tr>
+<td style="text-align:left">static Thread currentThread()</td>
+<td style="text-align:left">当前代码的执行线程</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">void setUncaughtException-<br>Handler(UncaughtExceptionHandler eh)</td>
+<td style="text-align:left">设置未捕获异常处理器</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">void interrupt()</td>
+<td style="text-align:left">中断线程</td>
+<td style="text-align:left">设置线程的中断标志为 true</td>
+</tr>
+<tr>
+<td style="text-align:left">static boolean interrupted()</td>
+<td style="text-align:left">检测当前线程是否被中断</td>
+<td style="text-align:left">此方法会<strong>清除线程的中断状态</strong></td>
+</tr>
+<tr>
+<td style="text-align:left">boolean isInterrupted()</td>
+<td style="text-align:left">检测线程是否被中断</td>
+<td style="text-align:left">此方法不会清除线程的中断状态</td>
+</tr>
+</tbody>
+</table>
+<h2 id="java-线程的创建">Java 线程的创建</h2>
+<p>在 Java 中，创建线程的方法只有一种：<strong>创建 Thread 对象</strong>。</p>
+<p>因为线程启动之后运行的是<code>Thread#run()</code>中的逻辑，其run方法的源码如下，所以在实际开发中，常通过两种方式来创建线程：</p>
+<ol>
+<li>继承 Thread 类并重写其run方法。</li>
+<li>实现 Runnable 接口，并将其实现类对象传递给 Thread 构造函数。</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">private</span> <span class="n">Runnable</span> <span class="n">target</span><span class="o">;</span>
+
+<span class="nd">@Override</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
+    <span class="c1">// target 为创建 Thread 时传入的 Runnable 对象
+</span><span class="c1"></span>    <span class="k">if</span> <span class="o">(</span><span class="n">target</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">target</span><span class="o">.</span><span class="na">run</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>推荐使用实现 Runnable 接口的方式来创建线程，其优势如下：</p>
+<ul>
+<li>Java 语言只能单继承，通过实现接口的方式，可以让实现类去继承除 Thread 之外的其他类。</li>
+<li>线程控制逻辑在 Thread 类中，业务运行逻辑在 Runnable 实现类中。</li>
+<li>实现 Runnable 接口的对象，可以被多个线程共享并执行。</li>
+<li>实现 Runnable 接口的对象可以交给 Thread 或类似执行器的 Java 并发对象来执行。</li>
+</ul>
+<h2 id="java-线程的启动与运行">Java 线程的启动与运行</h2>
+<p>调用<code>Thread#start()</code>来启动相应的线程，即请求 JVM 运行相应的线程，而线程具体何时能够运行是由线程调度器决定。</p>
+<p>运行一个线程实际上就是让 JVM 执行该线程的<code>Thread#run()</code>，从而使对应的任务处理逻辑代码得以执行，即 Thread 子类的<code>run()</code>被执行或<code>Runnable#run()</code>被执行。</p>
+<p>同一个 Thread 是只允许调用一次<code>start()</code>的，之后再调用会抛出异常，这是因为线程状态已不是<code>Thread.State.NEW</code>。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">synchronized</span> <span class="kt">void</span> <span class="nf">start</span><span class="o">()</span> <span class="o">{</span>
+    <span class="c1">// threadStatus 不等于 State.NEW 时
+</span><span class="c1"></span>    <span class="k">if</span> <span class="o">(</span><span class="n">threadStatus</span> <span class="o">!=</span> <span class="n">0</span><span class="o">)</span>
+        <span class="k">throw</span> <span class="k">new</span> <span class="n">IllegalThreadStateException</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="线程的生命周期状态">线程的生命周期状态</h2>
+<p>JDK 5起，线程状态被明确定义在<code>java.lang.Thread.State</code>这个公共枚举类中。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">enum</span> <span class="n">State</span> <span class="o">{</span>
+    <span class="n">NEW</span><span class="o">,</span>
+    <span class="n">RUNNABLE</span><span class="o">,</span>
+    <span class="n">BLOCKED</span><span class="o">,</span>
+    <span class="n">WAITING</span><span class="o">,</span>
+    <span class="n">TIMED_WAITING</span><span class="o">,</span>
+    <span class="n">TERMINATED</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><strong>NEW</strong>：表示线程已创建但未启动。一个线程只可能有一次处于此状态。</p>
+<p><strong>RUNNABLE</strong>：该状态是一个复合状态，包含 READY 和 RUNNING 两个子状态。</p>
+<ul>
+<li>READY：线程可以被线程调度器进行调度。</li>
+<li>RUNNING：线程正在被处理器执行。</li>
+</ul>
+<p><strong>BLOCKED</strong>：阻塞状态。</p>
+<ul>
+<li>线程发起一个阻塞式IO操作或者申请一个由其他线程持有的独占资源时，它会处于该状态。</li>
+<li>当阻塞式IO操作完成或者获得独占资源后，线程又转换为 RUNNABLE 状态。</li>
+</ul>
+<p><strong>WAITING</strong>：表示线程正在等待其他线程执行特定的操作。</p>
+<p><strong>TIMED_WAITING</strong>：该状态和 WAITING 类似，差别在于处于此状态的线程是<strong>带有时间限制地等待</strong>其他线程执行特定操作。当其他线程没有在指定等待时间内执行特定操作，该线程的状态自动转换为 RUNNABLE。</p>
+<p><strong>TERMINATED</strong>：表示线程已经执行结束。其<code>Thread#run()</code>正常结束或由于抛出异常而提前终止。</p>
+<p>一个线程在整个生命周期中，只可能有一次处于 NEW 状态和 TERMINATED 状态。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/2021-03-12-17-51-50.png"
+        data-srcset="/images/2021-03-12-17-51-50.png, /images/2021-03-12-17-51-50.png 1.5x, /images/2021-03-12-17-51-50.png 2x"
+        data-sizes="auto"
+        alt="/images/2021-03-12-17-51-50.png"
+        title="/images/2021-03-12-17-51-50.png" /></p>
+<h2 id="java-线程的类别">Java 线程的类别</h2>
+<p>Java线程分为<strong>守护线程</strong>（Daemon Thread）和<strong>用户线程</strong>（User Thread，又叫非守护线程）。</p>
+<p>这两者的区别在于：守护线程不影响Java程序的结束。</p>
+<p>可以使用<code>Thread#isDaemon()</code>检查线程是否为守护线程。</p>
+<p>可以使用<code>Thread#setDaemon()</code>将某个线程确立为守护线程。注意，此方法必须要在<code>Thread#start()</code>之前调用。</p>
+<p>守护线程通常用于执行一些重要性不是很高的任务，如监视其他线程的运行情况。</p>
+<h2 id="java-线程的中断">Java 线程的中断</h2>
+<p>Java 线程中断机制是Java 线程之间协作的一套协议框架。</p>
+<ul>
+<li>中断可看作由一个线程发送给另外一个线程的一种指示，该指示用于表示发起线程希望目标线程停止其正在执行的操作。</li>
+<li>中断仅仅代表发起线程的一个诉求，而该诉求能否被满足则取决于目标线程自身。</li>
+</ul>
+<p>Java 平台会为每个线程维护一个被称为<strong>中断标记</strong>的布尔型状态变量，用于表示相应线程是否接收到中断，而该标记为 true表示收到中断。</p>
+<p>目标线程可以通过<code>boolean isInterrupted()</code>来获取中断标记值。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">isInterrupted</span><span class="o">()</span> <span class="o">{</span>
+    <span class="c1">// ClearInterrupted 传入 false
+</span><span class="c1"></span>    <span class="k">return</span> <span class="n">isInterrupted</span><span class="o">(</span><span class="kc">false</span><span class="o">);</span>
+<span class="o">}</span>
+<span class="c1">// 最终通过本地方法来检测线程是否被中断。
+</span><span class="c1">// ClearInterrupted 为是否要清除中断标志
+</span><span class="c1"></span><span class="kd">private</span> <span class="kd">native</span> <span class="kt">boolean</span> <span class="nf">isInterrupted</span><span class="o">(</span><span class="kt">boolean</span> <span class="n">ClearInterrupted</span><span class="o">);</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>可以通过<code>static boolean interrupted()</code>获取当前线程的中断标记值。注意，此方法会清除当前线程的中断标记，即将其中断标记设为 false。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">static</span> <span class="kt">boolean</span> <span class="nf">interrupted</span><span class="o">()</span> <span class="o">{</span>
+    <span class="c1">// 通过 currentThread() 获取当前线程
+</span><span class="c1"></span>    <span class="c1">// ClearInterrupted 传入 true
+</span><span class="c1"></span>    <span class="k">return</span> <span class="n">currentThread</span><span class="o">().</span><span class="na">isInterrupted</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>调用一个线程的<code>void interrupt()</code>就是中断该线程，即将该线程的中断标记设为 true。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">// interrupt() 最终是通过此本地方法来中断线程
+</span><span class="c1"></span><span class="kd">private</span> <span class="kd">native</span> <span class="kt">void</span> <span class="nf">interrupt0</span><span class="o">();</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>目标线程检查中断标记后所执行的操作被称为目标线程对中断的响应，简称<strong>中断响应</strong>。</p>
+<p>中断响应一般有：</p>
+<ul>
+<li>无影响。目标线程不对中断进行响应。</li>
+<li>取消任务的运行。目标线程取消这一刻所执行的任务，但会继续处理接下来的任务。</li>
+<li>目标线程停止。目标线程终止执行。</li>
+</ul>
+<h2 id="java-阻塞方法与中断响应">Java 阻塞方法与中断响应</h2>
+<p>像申请 synchronized 内置锁这种不能响应中断的阻塞被称为<strong>重量级阻塞</strong>，对应的线程状态是 BLOCKED。</p>
+<p>能够响应中断的阻塞称为<strong>轻量级阻塞</strong>，对应的线程状态是 WAITING 或 TIMED_WAITING。</p>
+<p>Java 标准库中有许多轻量级阻塞的方法，它们对中断的响应方式都是抛出 InterruptedException，比如：</p>
+<ul>
+<li><code>Object#wait()/wait(long)</code></li>
+<li><code>Thread#sleep(long)</code></li>
+<li><code>Thread#join()/join(long)</code></li>
+<li><code>Lock#lockInterruptibly()</code></li>
+<li><code>CountDownLatch#await()</code></li>
+<li><code>CyclicBarrier#await()</code></li>
+<li><code>BlockingQueue#take()/put(E)</code></li>
+</ul>
+<p>这些能够响应中断的阻塞方法通常是<strong>在执行阻塞操作前判断中断标记</strong>，若为 true 则抛出 InterruptedException。而且依照惯例，凡是抛出 InterruptedException 的方法，通常会在其抛出该异常之前将当前线程的<strong>中断标记重置为 false</strong>。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">// Lock#lockInterruptibly() 的内部实现
+</span><span class="c1"></span><span class="kd">public</span> <span class="kd">final</span> <span class="kt">void</span> <span class="nf">acquireInterruptibly</span><span class="o">(</span><span class="kt">int</span> <span class="n">arg</span><span class="o">)</span>
+            <span class="kd">throws</span> <span class="n">InterruptedException</span> <span class="o">{</span>
+    <span class="c1">// 获取并重置中断标记
+</span><span class="c1"></span>    <span class="k">if</span> <span class="o">(</span><span class="n">Thread</span><span class="o">.</span><span class="na">interrupted</span><span class="o">())</span>
+        <span class="c1">// 抛出 InterruptedException 来响应中断
+</span><span class="c1"></span>        <span class="k">throw</span> <span class="k">new</span> <span class="n">InterruptedException</span><span class="o">();</span>
+    <span class="o">...</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>如果目标线程因为执行<code>Lock#lockInterruptibly()</code>等能够响应中断的轻量级阻塞方法而暂停时（线程状态是 WAITING 或 TIMED_WAITING），发起线程给该目标线程发送中断后，<strong>Java 虚拟机会将此目标线程唤醒以使其有机会响应中断</strong>，即抛出 InterruptedException。可见，给目标线程发送中断还能够产生唤醒目标线程的效果。</p>
+<h2 id="java-线程的停止">Java 线程的停止</h2>
+<p>Java 标准库并没有提供可以直接停止线程的 API，<code>Thread#stop()/destroy()</code>等都是已废弃的方法。这是因为如果强制停止线程，则线程中所使用的资源（文件描述符、网络连接等）不能正常关闭。</p>
+<p>合理的线程停止是让线程自己运行完毕，即<code>Thread#run()</code>执行完毕。</p>
+<p>主动停止一个线程的实现思路：为线程自定义一个<strong>线程停止标记</strong>（布尔型，一般用 <strong>volatile</strong> 修饰），当线程检测到该标机值为 true 时则设法让其run方法执行完毕。</p>
+<p>光使用专门的线程停止标记仍然不够，还需要借助<strong>线程中断机制</strong>。如果线程停止标记为 true 时，目标线程可能因为执行了一些阻塞方法而暂停，此时线程停止标记根本不会对目标线程产生任何影响。此时<strong>需要给目标线程发送中断以将其唤醒，使之得以判断线程停止标记</strong>，然后设法让自己执行完毕。</p>
+<h2 id="参考资料">参考资料</h2>
+<p><a href="https://book.douban.com/subject/27034721/" target="_blank" rel="noopener noreffer">Java多线程编程实战指南（核心篇）- 第1章 走近Java世界中的线程、5.6 对不起，打扰一下：线程中断机制、5.7 线程停止：看似简单，实则不然</a></p>
+<p><a href="https://book.douban.com/subject/30351286/" target="_blank" rel="noopener noreffer">Java并发编程之美 - 第1章 并发编程线程基础</a></p>
+<p><a href="https://book.douban.com/subject/35013531/" target="_blank" rel="noopener noreffer">Java 并发实现原理：JDK 源码剖析 - 第 1 章 多线程基础</a></p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2021-05-04</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/java/">Java</a>,&nbsp;<a href="/tags/%E5%B9%B6%E5%8F%91/">并发</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="http://daking.tech/" target="_blank">daking</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

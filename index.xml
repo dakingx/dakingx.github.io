@@ -1,0 +1,17 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>DakingTech</title>
+        <link>http://daking.tech/</link>
+        <description>DakingTech</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>dakingx@163.com (daking)</managingEditor>
+            <webMaster>dakingx@163.com (daking)</webMaster><lastBuildDate>Tue, 04 May 2021 14:09:46 &#43;0800</lastBuildDate>
+            <atom:link href="http://daking.tech/index.xml" rel="self" type="application/rss+xml" />
+        <item>
+    <title>Java线程</title>
+    <link>http://daking.tech/posts/java%E7%BA%BF%E7%A8%8B/</link>
+    <pubDate>Tue, 04 May 2021 14:09:46 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://daking.tech/posts/java%E7%BA%BF%E7%A8%8B/</guid>
+    <description><![CDATA[掌握 Java 线程的创建、启动、运行、中断和停止]]></description>
+</item></channel>
+</rss>
