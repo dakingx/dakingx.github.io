@@ -1,22 +1,22 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>Categories - 分类 - DakingTech</title>
-        <link>http://daking.tech/categories/</link>
+        <link>http://dakingx.github.io/categories/</link>
         <description>Categories - 分类 - DakingTech</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>dakingx@163.com (daking)</managingEditor>
-            <webMaster>dakingx@163.com (daking)</webMaster><lastBuildDate>Tue, 04 May 2021 14:09:46 &#43;0800</lastBuildDate><atom:link href="http://daking.tech/categories/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>dakingx@163.com (daking)</webMaster><lastBuildDate>Tue, 04 May 2021 14:09:46 &#43;0800</lastBuildDate><atom:link href="http://dakingx.github.io/categories/" rel="self" type="application/rss+xml" /><item>
     <title>Java</title>
-    <link>http://daking.tech/categories/java/</link>
+    <link>http://dakingx.github.io/categories/java/</link>
     <pubDate>Tue, 04 May 2021 14:09:46 &#43;0800</pubDate>
     <author>作者</author>
-    <guid>http://daking.tech/categories/java/</guid>
+    <guid>http://dakingx.github.io/categories/java/</guid>
     <description><![CDATA[]]></description>
 </item><item>
     <title>并发</title>
-    <link>http://daking.tech/categories/%E5%B9%B6%E5%8F%91/</link>
+    <link>http://dakingx.github.io/categories/%E5%B9%B6%E5%8F%91/</link>
     <pubDate>Tue, 04 May 2021 14:09:46 &#43;0800</pubDate>
     <author>作者</author>
-    <guid>http://daking.tech/categories/%E5%B9%B6%E5%8F%91/</guid>
+    <guid>http://dakingx.github.io/categories/%E5%B9%B6%E5%8F%91/</guid>
     <description><![CDATA[]]></description>
 </item></channel>
 </rss>
