@@ -4,14 +4,35 @@
         <link>http://dakingx.github.io/</link>
         <description>DakingTech</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>dakingx@163.com (daking)</managingEditor>
-            <webMaster>dakingx@163.com (daking)</webMaster><lastBuildDate>Tue, 04 May 2021 14:09:46 &#43;0800</lastBuildDate>
+            <webMaster>dakingx@163.com (daking)</webMaster><lastBuildDate>Sat, 08 May 2021 10:14:21 &#43;0800</lastBuildDate>
             <atom:link href="http://dakingx.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
-    <title>Java线程</title>
-    <link>http://dakingx.github.io/posts/java%E7%BA%BF%E7%A8%8B/</link>
+    <title>Android 多渠道打包</title>
+    <link>http://dakingx.github.io/posts/android-%E5%A4%9A%E6%B8%A0%E9%81%93%E6%89%93%E5%8C%85/</link>
+    <pubDate>Sat, 08 May 2021 10:14:21 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://dakingx.github.io/posts/android-%E5%A4%9A%E6%B8%A0%E9%81%93%E6%89%93%E5%8C%85/</guid>
+    <description><![CDATA[了解 Android 多渠道打包的几种常用方案]]></description>
+</item><item>
+    <title>APK 打包</title>
+    <link>http://dakingx.github.io/posts/apk-%E6%89%93%E5%8C%85/</link>
+    <pubDate>Sat, 08 May 2021 10:08:10 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://dakingx.github.io/posts/apk-%E6%89%93%E5%8C%85/</guid>
+    <description><![CDATA[了解 APK 打包工具和打包过程]]></description>
+</item><item>
+    <title>APK 签名</title>
+    <link>http://dakingx.github.io/posts/apk-%E7%AD%BE%E5%90%8D/</link>
+    <pubDate>Sat, 08 May 2021 10:04:36 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://dakingx.github.io/posts/apk-%E7%AD%BE%E5%90%8D/</guid>
+    <description><![CDATA[了解 APK V1 和 V2 签名]]></description>
+</item><item>
+    <title>Java 线程</title>
+    <link>http://dakingx.github.io/posts/java-%E7%BA%BF%E7%A8%8B/</link>
     <pubDate>Tue, 04 May 2021 14:09:46 &#43;0800</pubDate>
     <author>作者</author>
-    <guid>http://dakingx.github.io/posts/java%E7%BA%BF%E7%A8%8B/</guid>
+    <guid>http://dakingx.github.io/posts/java-%E7%BA%BF%E7%A8%8B/</guid>
     <description><![CDATA[掌握 Java 线程的创建、启动、运行、中断和停止]]></description>
 </item></channel>
 </rss>
